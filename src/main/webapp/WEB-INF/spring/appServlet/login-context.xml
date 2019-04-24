@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
+	<!-- project에서 LoginAuthIntercepter 클래스를 통해 처리할 일들을 지정 -->
+	<!-- 1. LoginAuthIntercepter를 bean으로 설정 -->
+	<bean id="loginAuth" class="com.biz.memo.intercepter.LoginAuthIntercepter" />
+	
+	<!-- intercepter를 수행할 RequestMapping을 설정 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/ad-*"/>
+			<mvc:exclude-mapping path="/ad-4"/>
+			<mvc:exclude-mapping path="/ad-5"/>
+			<ref bean="loginAuth" /> <!-- 이게 빠지면 아무의미없음 -->
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+</beans>
